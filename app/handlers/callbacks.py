@@ -1,14 +1,18 @@
-from difflib import restore
-from unittest import result
+from email import message
+from aiogram import F, Router
+from aiogram.dispatcher import router
 from aiogram.types import CallbackQuery
 from aiogram.types import FSInputFile, InputFile
 
-from responses import CONTACTS, FAQ
 from aiogram.enums import ParseMode
 
-from keyboards import get_back_menu, get_menu_buttons
+from app.responses import CONTACTS, FAQ
+from app.keyboards.keyboards import get_back_menu, get_menu_buttons
+
+router = Router()
 
 
+@router.callback_query(F.data == "prices")
 async def get_prices(callback: CallbackQuery):
     file_path = "documents/services.pdf"
     await callback.message.answer("Цена на наши услуги: ")
@@ -17,12 +21,7 @@ async def get_prices(callback: CallbackQuery):
     )
     await callback.answer()
 
-
-async def create_order(callback: CallbackQuery):
-    await callback.message.answer("Вы нажали 'Помощь!'")
-    await callback.answer()
-
-
+@router.callback_query(F.data == "contact")
 async def get_contact(callback: CallbackQuery):
     result = "<b>Наши контакты:</b>\n\n"
     for key, value in CONTACTS.items():
@@ -33,6 +32,7 @@ async def get_contact(callback: CallbackQuery):
     await callback.answer()
 
 
+@router.callback_query(F.data == "faq")
 async def get_faq(callback: CallbackQuery):
     result = "<b>Часто задаваемые вопросы:</b>\n\n"
     for val in FAQ:
@@ -43,6 +43,7 @@ async def get_faq(callback: CallbackQuery):
     await callback.answer()
 
 
+@router.callback_query(F.data == "menu")
 async def menu_back(callback: CallbackQuery):
     photo = FSInputFile("img/logo.jpg")
     await callback.message.answer_photo(
