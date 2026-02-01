@@ -1,11 +1,7 @@
 from aiogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
-    ReplyKeyboardMarkup,
-    KeyboardButton,
 )
-from aiogram.utils import keyboard
-
 
 def admins_keyboard() -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(

@@ -1,11 +1,9 @@
 from aiogram import F, Router
 from aiogram.dispatcher import router
-from aiogram.filters import Command, command
-from aiogram.fsm import state
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, FSInputFile, Message
 from aiogram.fsm.state import StatesGroup, State
-from aiogram.enums import ParseMode
 from app.database.crud_user import is_admin
 from app.keyboards.orders_keyboards import (
     complete_orders,

@@ -1,5 +1,5 @@
 from aiogram import F, Router
-from aiogram.filters import Command, command
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, FSInputFile, Message
 from app.keyboards.admin_keyboards import admins_keyboard

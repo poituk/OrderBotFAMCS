@@ -1,4 +1,4 @@
-from aiogram import Router, types, F
+from aiogram import Router
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message

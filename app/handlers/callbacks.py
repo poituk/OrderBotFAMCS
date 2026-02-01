@@ -1,11 +1,9 @@
-from email import message
 from aiogram import F, Router
 from aiogram.dispatcher import router
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
-from aiogram.types import FSInputFile, InputFile
-from datetime import datetime
+from aiogram.types import FSInputFile
 
 from aiogram.enums import ParseMode
 
@@ -92,7 +90,7 @@ async def admin_list(callback: CallbackQuery):
 <b>Номер заказа:</b> {order.id}
 <b>Вы представились:</b> {order.name}         
 <b>Ваш контакт:</b> {order.contact}
-<b>Описание заказа:</b> {order.description}
+<b>Описание заказа:</b> {order.types, Fdescription}
 <b>Заказ создан:</b> {order.created_at.strftime("%d.%m.%Y %H:%M")} 
 \n"""
     await callback.message.answer(result, reply_markup=get_back_menu())

@@ -1,7 +1,6 @@
 import asyncio
-import sys
 
-from aiogram import Bot, Dispatcher, Router
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.dispatcher import router
 from aiogram import F

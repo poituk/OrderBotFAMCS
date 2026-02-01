@@ -2,9 +2,8 @@ from aiogram.types import (
     InlineKeyboardMarkup,
     InlineKeyboardButton,
     ReplyKeyboardMarkup,
-    KeyboardButton,
+    KeyboardButton
 )
-from aiogram.utils import keyboard
 
 
 def get_menu_buttons() -> InlineKeyboardMarkup:

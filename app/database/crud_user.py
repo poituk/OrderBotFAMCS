@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, select
+from sqlalchemy import select
 from app.database.database import Session
 from app.database.models import Users
 

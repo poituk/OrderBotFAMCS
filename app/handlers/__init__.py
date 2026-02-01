@@ -1,6 +1,5 @@
 from aiogram import Router
 
-from app.handlers import admin_command
 from .base import router as base_router
 from .callbacks import router as callback_router
 from .create_order import router as create_order_router
