@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from app.database.database import Session
 from app.database.models import Orders
 
@@ -12,3 +13,25 @@ async def save_todb(new_order):
         )
         session.add(order)
         await session.commit()
+        await session.refresh(order)
+        return order.id
+
+
+async def get_orders(id):
+    async with Session() as session:
+        tmp = select(Orders).where(Orders.user_id == id)
+        result = await session.execute(tmp)
+        return result.scalars().all()
+
+
+async def remove_order(id, user_id):
+    async with Session() as session:
+        tmp = select(Orders).where(Orders.id == id, Orders.user_id == user_id)
+        result = await session.execute(tmp)
+        order = result.scalar_one_or_none()
+        if order:
+            await session.delete(order)
+            await session.commit()
+            return True
+        else:
+            return False

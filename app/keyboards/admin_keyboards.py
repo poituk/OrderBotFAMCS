@@ -13,7 +13,7 @@ def admins_keyboard() -> InlineKeyboardMarkup:
             [InlineKeyboardButton(text="➕ Добавить", callback_data="admin_add")],
             [InlineKeyboardButton(text="➖ Удалить", callback_data="admin_remove")],
             [InlineKeyboardButton(text="📋 Список", callback_data="admin_list")],
+            [InlineKeyboardButton(text="🔙 Вернуться в меню", callback_data="menu")],
         ]
     )
     return keyboard
-
