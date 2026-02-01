@@ -35,3 +35,37 @@ async def remove_order(id, user_id):
             return True
         else:
             return False
+
+
+async def remove_admin_order(id):
+    async with Session() as session:
+        tmp = select(Orders).where(Orders.id == id)
+        result = await session.execute(tmp)
+        order = result.scalar_one_or_none()
+        if order:
+            await session.delete(order)
+            await session.commit()
+            return True
+        else:
+            return False
+
+
+async def get_admin_orders():
+    async with Session() as session:
+        tmp = select(Orders).where()
+        result = await session.execute(tmp)
+        return result.scalars().all()
+
+
+async def get_old_order():
+    async with Session() as session:
+        tmp = select(Orders).order_by(Orders.created_at.asc()).limit(1)
+        result = await session.execute(tmp)
+        return result.scalar_one_or_none()
+
+
+async def get_last_order():
+    async with Session() as session:
+        tmp = select(Orders).order_by(Orders.created_at.desc()).limit(1)
+        result = await session.execute(tmp)
+        return result.scalar_one_or_none()

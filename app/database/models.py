@@ -20,5 +20,11 @@ class Users(Base):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(Integer)
-    name: Mapped[int] = mapped_column(String)
+    name: Mapped[str] = mapped_column(String)
     is_admin: Mapped[bool] = mapped_column(Boolean)
+
+
+class Texts(Base):
+    __tablename__ = "users"
+    name: Mapped[int] = mapped_column(String)
+    text: Mapped[str] = mapped_column(String)
