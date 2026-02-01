@@ -10,6 +10,7 @@ from datetime import datetime
 from aiogram.enums import ParseMode
 
 from app.database.crud_order import get_orders, remove_order
+from app.database.crud_text import get_text
 from app.responses import CONTACTS, FAQ
 from app.keyboards.keyboards import get_back_menu, get_menu_buttons, order_keyboards
 
@@ -32,9 +33,14 @@ async def get_prices(callback: CallbackQuery):
 
 @router.callback_query(F.data == "contact")
 async def get_contact(callback: CallbackQuery):
-    result = "<b>Наши контакты:</b>\n\n"
-    for key, value in CONTACTS.items():
-        result += f"<b>{key}</b> : {value}\n\n"
+    new_text = await get_text("contact")
+    result = ""
+    if new_text:
+        result = new_text.text
+    else:
+        result = "<b>Наши контакты:</b>\n\n"
+        for key, value in CONTACTS.items():
+            result += f"<b>{key}</b> : {value}\n\n"
     await callback.message.answer(
         text=result, parse_mode=ParseMode.HTML, reply_markup=get_back_menu()
     )
@@ -43,9 +49,14 @@ async def get_contact(callback: CallbackQuery):
 
 @router.callback_query(F.data == "faq")
 async def get_faq(callback: CallbackQuery):
-    result = "<b>Часто задаваемые вопросы:</b>\n\n"
-    for val in FAQ:
-        result += f"<b>Q: {val[0]}</b>\n A: {val[1]}\n\n"
+    new_text = await get_text("faq")
+    result = ""
+    if new_text:
+        result = new_text.text
+    else:
+        result = "<b>Часто задаваемые вопросы:</b>\n\n"
+        for val in FAQ:
+            result += f"<b>Q: {val[0]}</b>\n A: {val[1]}\n\n"
     await callback.message.answer(
         text=result, parse_mode=ParseMode.HTML, reply_markup=get_back_menu()
     )

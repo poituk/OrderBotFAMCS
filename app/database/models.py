@@ -18,6 +18,7 @@ class Orders(Base):
 
 class Users(Base):
     __tablename__ = "users"
+    
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(Integer)
     name: Mapped[str] = mapped_column(String)
@@ -25,6 +26,8 @@ class Users(Base):
 
 
 class Texts(Base):
-    __tablename__ = "users"
-    name: Mapped[int] = mapped_column(String)
+    __tablename__ = "texts"
+
+    id = Column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String)
     text: Mapped[str] = mapped_column(String)

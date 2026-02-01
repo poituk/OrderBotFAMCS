@@ -37,6 +37,9 @@ async def order_menu(message: Message):
 
 @router.callback_query(F.data == "back_orders")
 async def order_menu(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     photo = FSInputFile("img/work.jpg")
     await callback.message.answer_photo(
         photo=photo,
@@ -47,6 +50,9 @@ async def order_menu(callback: CallbackQuery):
 
 @router.callback_query(F.data == "orders_admin_list")
 async def admin_list(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     all_orders = await get_admin_orders()
     result = f"<b>Список заказов ({len(all_orders)}) :</b> \n\n"
     for index, order in enumerate(all_orders):
@@ -64,7 +70,15 @@ async def admin_list(callback: CallbackQuery):
 
 @router.callback_query(F.data == "old_order")
 async def old_order(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     order = await get_old_order()
+    if not order:
+        await callback.message.answer(
+            "🎉 Похоже вы выполнили все заказы!!!",
+        )
+        return await callback.answer()
     result = f"""<b>Самый старый заказ:</b> \n
 <b>Номер заказа:</b> {order.id}
 <b>Имя:</b> {order.name}         
@@ -79,7 +93,15 @@ async def old_order(callback: CallbackQuery):
 
 @router.callback_query(F.data == "last_order")
 async def last_order(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     order = await get_last_order()
+    if not order:
+        await callback.message.answer(
+            "🎉 Похоже вы выполнили все заказы!!!",
+        )
+        return await callback.answer()
     result = f"""<b>Самый новый заказ:</b> \n
 <b>Номер заказа:</b> {order.id}
 <b>Имя:</b> {order.name}         
@@ -94,6 +116,9 @@ async def last_order(callback: CallbackQuery):
 
 @router.callback_query(F.data == "сomplete_order")
 async def complete_order(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     await callback.message.answer(
         "Выберите одно из следующих действий:", reply_markup=complete_orders()
     )
@@ -106,6 +131,9 @@ class OrdersNumber(StatesGroup):
 
 @router.callback_query(F.data == "complete_number")
 async def complete_order(callback: CallbackQuery, state: FSMContext):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     await state.set_state(OrdersNumber.waiting_number)
     await callback.message.answer(
         "Введите номер заказа, который вы выполнили:", reply_markup=get_back_orders()
@@ -137,6 +165,9 @@ async def complete_order(message: Message, state: FSMContext):
 
 @router.callback_query(F.data == "complete_first")
 async def complete_first(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     order = await get_old_order()
     if not order:
         await callback.message.answer(
@@ -152,6 +183,9 @@ async def complete_first(callback: CallbackQuery):
 
 @router.callback_query(F.data == "complete_last")
 async def complete_last(callback: CallbackQuery):
+    if await is_admin(callback.from_user.id) == False:
+        await callback.answer("❗️ У тебя недостаточно прав!")
+        return
     order = await get_last_order()
     if not order:
         await callback.message.answer(

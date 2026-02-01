@@ -7,11 +7,17 @@ from aiogram.types import FSInputFile
 from app.keyboards.keyboards import get_main_menu, get_menu_buttons
 from app.responses import HELP_INFO, WELCOME_INFO
 
+from app.database.crud_text import get_text
+
 router = Router()
 
 
 @router.message(CommandStart())
 async def send_welcome(message: Message) -> None:
+    result = await get_text("start")
+    global WELCOME_INFO
+    if result:
+        WELCOME_INFO = result.text
     await message.answer(text=WELCOME_INFO, reply_markup=get_main_menu())
 
 

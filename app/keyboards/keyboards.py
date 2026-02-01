@@ -44,3 +44,25 @@ def order_keyboards() -> InlineKeyboardButton:
         [InlineKeyboardButton(text="🔙 Вернуться в меню", callback_data="menu")],
     ]
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
+
+
+def edit_keyboard() -> InlineKeyboardButton:
+    keyboard = [
+        [
+            InlineKeyboardButton(
+                text="🚀 Изменить текст </start>", callback_data="edit_start"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="👥 Изменить текст <Контакты>", callback_data="edit_contact"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="❓ Изменить текст <faq>", callback_data="edit_faq"
+            )
+        ],
+        [InlineKeyboardButton(text="🔙 Вернуться в меню", callback_data="menu")],
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=keyboard)
