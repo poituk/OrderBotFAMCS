@@ -5,7 +5,7 @@ from aiogram.dispatcher import router
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import CallbackQuery
 from aiogram.fsm.context import FSMContext
-
+from app.database.crud_order import save_todb
 
 router = Router()
 
@@ -41,6 +41,7 @@ async def input_contact(message: Message, state: FSMContext):
 async def description(message: Message, state: FSMContext):
     await state.update_data(description=message.text)
     data = await state.get_data()
-
+    data["user_id"] = message.from_user.id
+    await save_todb(data)
     await state.clear()
     await message.answer("✅ Данные успешно сохранены!")

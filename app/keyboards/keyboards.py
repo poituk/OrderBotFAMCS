@@ -30,8 +30,7 @@ def get_main_menu() -> ReplyKeyboardMarkup:
     return keyboard_main
 
 
-def get_back_menu():
+def get_back_menu() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[[InlineKeyboardButton(text="🔙 Назад", callback_data="menu")]]
     )
-

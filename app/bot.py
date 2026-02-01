@@ -7,6 +7,7 @@ from aiogram.dispatcher import router
 from aiogram import F
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
+from app.database.database import create_tables, recreate_tables
 
 
 from app.handlers import router
@@ -21,6 +22,8 @@ dp.include_router(router)
 
 
 async def main() -> None:
+    await create_tables()
+    #await recreate_tables()
     await dp.start_polling(bot)
 
 
